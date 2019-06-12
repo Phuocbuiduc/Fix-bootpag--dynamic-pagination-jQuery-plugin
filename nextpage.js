@@ -1,0 +1,20 @@
+/*
+
+ bootpag - jQuery plugin for dynamic pagination
+
+ Copyright (c) 2015 botmonster@7items.com
+
+ Licensed under the MIT license:
+   http://www.opensource.org/licenses/mit-license.php
+
+ Project home:
+   http://botmonster.com/jquery-bootpag/
+
+ Version:  1.0.7
+ 
+ Editor by vietH + Phuocbd
+ 
+
+*/
+
+!function(a,t){a.fn.bootpag=function(t){function s(t,s){s=parseInt(s,10);var r,n=0===e.maxVisible?1:e.maxVisible,o=1==e.maxVisible?0:1,f=Math.floor((s-1)/n)*n,c=t.find("li");if(e.page=s=0>s?0:s>e.total?e.total:s,c.removeClass(e.activeClass),r=1>s-1?1:e.leaps&&s-1>=e.maxVisible?Math.floor((s-1)/n)*n:s-1,e.firstLastUse&&c.first().toggleClass(e.disabledClass,1===s),n=c.first(),e.firstLastUse&&(n=n.next()),n.toggleClass(e.disabledClass,1===s).attr("data-lp",r).find("a").attr("href",l(r)),o=1==e.maxVisible?0:1,r=e.total%e.maxVisible==0?s+1>e.total?e.total:e.leaps&&s+1<e.total-e.maxVisible?f+e.maxVisible+o:s==e.total-(e.maxVisible+1)?s+2:s+1:s+1>e.total?e.total:e.leaps&&s+1<e.total-e.maxVisible?f+e.maxVisible+o:s>e.total-e.total%e.maxVisible?s+1:e.total-e.total%e.maxVisible+1,n=c.last(),e.firstLastUse&&(n=n.prev()),n.toggleClass(e.disabledClass,s===e.total).attr("data-lp",r).find("a").attr("href",l(r)),c.last().toggleClass(e.disabledClass,s===e.total),n=c.filter("[data-lp="+s+"]"),o="."+[e.nextClass,e.prevClass,e.firstClass,e.lastClass].join(",."),!n.not(o).length){var p=s<=f?-e.maxVisible:0;c.not(o).each(function(t){r=t+1+f+p,a(this).attr("data-lp",r).toggle(r<=e.total).find("a").html(r).attr("href",l(r))}),n=c.filter("[data-lp="+s+"]")}n.not(o).addClass(e.activeClass),i.data("settings",e)}function l(a){return e.href.replace(e.hrefVariable,a)}var i=this,e=a.extend({total:0,page:1,maxVisible:null,leaps:!0,href:"javascript:void(0);",hrefVariable:"{{number}}",next:'<i class="material-icons center-align">keyboard_arrow_right</i>',prev:'<i class="material-icons left-align">keyboard_arrow_left</i>',firstLastUse:!1,first:'<span aria-hidden="true" style="text-align:center"><i class="material-icons">keyboard_arrow_left</i></span>',last:'<span aria-hidden="true"><i class="material-icons">keyboard_arrow_right</i></span>',wrapClass:"pagination",activeClass:"active",disabledClass:"disabled",nextClass:"next",prevClass:"prev",lastClass:"last",firstClass:"first"},i.data("settings")||{},t||{});return 0>=e.total?this:(a.isNumeric(e.maxVisible)||e.maxVisible||(e.maxVisible=parseInt(e.total,10)),i.data("settings",e),this.each(function(){var t,r,n=a(this);for(t=['<ul class="',e.wrapClass,' bootpag pagination">'],e.firstLastUse&&(t=t.concat(['<li data-lp="1" class="',e.firstClass,' waves-effect"><a href="',l(1),'" class="btn-flat">',e.first,"</a></li>"])),e.prev&&(t=t.concat(['<li data-lp="1" class="',e.prevClass,' waves-effect"><a href="',l(1),'" class="btn-flat">',e.prev,"</a></li>"])),r=1;r<=Math.min(e.total,e.maxVisible);r++)t=t.concat(['<li data-lp="',r,'" class="waves-effect"><a href="',l(r),'" class="btn-flat">',r,"</a></li>"]);e.next&&(r=e.leaps&&e.total>e.maxVisible?Math.min(e.maxVisible+1,e.total):2,t=t.concat(['<li data-lp="',r,'" class="',e.nextClass,' waves-effect"><a href="',l(r),'" class="btn-flat">',e.next,"</a></li>"])),e.firstLastUse&&(t=t.concat(['<li data-lp="',e.total,'" class="last waves-effect"><a href="',l(e.total),'" class="btn-flat">',e.last,"</a></li>"])),t.push("</ul>"),n.find("ul.bootpag.pagination").remove(),n.append(t.join("")),t=n.find("ul.bootpag.pagination"),n.find("li").click(function(){var t=a(this);if(!t.hasClass(e.disabledClass)&&!t.hasClass(e.activeClass)){var l=parseInt(t.attr("data-lp"),10);i.find("ul.bootpag.pagination").each(function(){s(a(this),l)}),i.trigger("page",l)}}),s(t,e.page)}))}}(jQuery,window),$(".demo4_top,.demo4_bottom").bootpag({total:50,page:2,maxVisible:5,leaps:!0,firstLastUse:!0,first:'<i class="material-icons">first_page</i>',last:'<i class="material-icons">last_page</i>',wrapClass:"pagination",activeClass:"active",disabledClass:"disabled",nextClass:"next",prevClass:"prev",lastClass:"last",firstClass:"first"}).on("page",function(a,t){$("#dynamic_content").html("Page "+t)});
